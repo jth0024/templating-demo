@@ -4,21 +4,15 @@ export function render(Component, elementRef) {
   const element = typeof elementRef === 'undefined'
     ? $(`${Component.prototype.name}`)
     : $(elementRef);
-  const props = mapInputsToProps(element, Component.prototype.inputs);
+  const props = getComponentProps(element, Component.prototype.inputs);
   const componentInstance = new Component(props);
+
   componentInstance.beforeRender();
-
-  element
-    .empty()
-    .append(componentInstance.template);
-
-  componentInstance.childComponents.forEach(childComponent => {
-    render(childComponent, undefined);
-  });
+  renderToElement(componentInstance, element);
   componentInstance.afterRender();
 }
 
-function mapInputsToProps(element, inputs) {
+function getComponentProps(element, inputs) {
   const props = {};
   inputs.forEach(input => {
     $.extend(props, {
@@ -26,4 +20,13 @@ function mapInputsToProps(element, inputs) {
     });
   });
   return props;
+}
+
+function renderToElement(componentInstance, element) {
+  element
+    .empty()
+    .append(componentInstance.template);
+  componentInstance.childComponents.forEach(childComponent => {
+    render(childComponent, undefined);
+  });
 }
