@@ -1,4 +1,4 @@
-import { createComponent } from '../../helpers/component';
+import { createComponent, createElement } from '../../helpers/DOM';
 
 export const topbar = createComponent({
   afterRender() {
@@ -6,15 +6,12 @@ export const topbar = createComponent({
   },
   beforeRender() {
     console.log('before topbar render');
-    console.log('props: ', this.props);
   },
-  inputs: [
-    'test',
-  ],
-  name: 'topbar',
-  template: `
-    <a href="./#/home">Home</a>
-    <a href="./#/about">About</a>
-    <a href="./#/posts/1">Posts</a>
-  `,
+  render() {
+    return createElement('div', { class: 'topbar' },
+      createElement('a', { href: './#/home' }, 'Home'),
+      createElement('a', { href: './#/about' }, 'About'),
+      createElement('a', { href: './#/posts/1' }, 'Posts')
+    );
+  },
 });

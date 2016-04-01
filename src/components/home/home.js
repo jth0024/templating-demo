@@ -1,14 +1,15 @@
 import $ from 'jquery';
-import { createComponent } from '../../helpers/component';
-import template from './home.html';
+import { createComponent, createElement } from '../../helpers/DOM';
 
 export const home = createComponent({
   afterRender,
-  inputs: [
-    'hello',
-  ],
-  name: 'home',
-  template,
+  render() {
+    return createElement('div', { class: 'home' },
+      'Welcome to home. Go to ',
+      createElement('a', { href: './#/about' }, 'about'),
+      '?'
+    );
+  },
 });
 
 function afterRender() {

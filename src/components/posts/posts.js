@@ -1,23 +1,15 @@
-import $ from 'jquery';
-import { createComponent } from '../../helpers/component';
+import { createComponent, createElement } from '../../helpers/DOM';
 
 export const posts = createComponent({
   beforeRender() {
-    console.log('before render fired');
+    console.log('before posts render');
   },
   afterRender() {
-    const postsElement = $('.posts');
-    const postsId = postsElement.find('#postsId');
-    postsId.append(this.props.post);
+    console.log('after posts render');
   },
-  inputs: [
-    'post'
-  ],
-  name: 'posts',
-  template: `
-    <div
-      class="posts">
-      Post id: <span id="postsId"></span>
-    </div>
-  `,
+  render() {
+    return createElement('div', { class: 'posts' },
+      createElement('span', null, `Post Id: ${ this.props.post }`)
+    );
+  },
 });

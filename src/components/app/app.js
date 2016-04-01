@@ -1,4 +1,4 @@
-import { createComponent } from '../../helpers/component';
+import { createComponent, createElement } from '../../helpers/DOM';
 import { posts } from '../posts/posts';
 import { topbar } from '../topbar/topbar';
 
@@ -9,14 +9,12 @@ export const app = createComponent({
   beforeRender() {
     console.log('before app render');
   },
-  childComponents: [
-    posts,
-    topbar,
-  ],
-  name: 'app',
-  template: `
-    <topbar data-test="testValue"></topbar>
-    <div id="view"></div>
-    <posts data-post="1"></posts>
-  `,
+  render() {
+    return createElement('div', { class: 'app' },
+      createElement(topbar),
+      createElement('div', null,
+        createElement(posts, { post: 1 })
+      )
+    );
+  },
 });

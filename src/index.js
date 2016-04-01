@@ -1,8 +1,9 @@
 import { app } from './components';
-import { render } from './helpers/renderer';
-import { startRouting } from './routing';
+import { createElement, render } from './helpers/DOM';
+//import { startRouting } from './routing';
 
 import './components/components.less';
 
-render(app, document.getElementById('app'));
-startRouting();
+const appElement = createElement(app);
+render(createElement(app), document.getElementById('app'));
+//startRouting();

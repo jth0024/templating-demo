@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import { assign, reduce } from 'lodash';
 
 export function createComponent(args) {
@@ -17,7 +18,10 @@ export function createElement(type, config = null, ...children) {
   if (typeof type === 'function') {
     const props = assign({}, config, { children });
     const componentInstance = new type(props);
-    return componentInstance.render();
+    componentInstance.beforeRender();
+    const template = componentInstance.render();
+    componentInstance.afterRender();
+    return template;
   }
   if (children.length === 0) {
     return `<${type}${buildPropsString(config)}></${type}>`;
@@ -29,9 +33,13 @@ export function createElement(type, config = null, ...children) {
   `;
 }
 
+export function render(element, elementRef) {
+  $(elementRef).html(element);
+}
+
 function buildPropsString(props) {
   if (props === null) return '';
   return reduce(props, (result, value, key) => {
-    return `${result} ${value}="${key}"`;
+    return `${result} ${key}="${value}"`;
   }, ' ');
 }
