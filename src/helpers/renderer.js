@@ -26,6 +26,7 @@ function renderToElement(componentInstance, element) {
   element
     .empty()
     .append(componentInstance.template);
+
   componentInstance.childComponents.forEach(childComponent => {
     render(childComponent, undefined);
   });
