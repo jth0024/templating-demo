@@ -1,4 +1,4 @@
-import { createComponent, createElement } from '../../helpers/DOM';
+import { createComponent, createElement } from '../../utilities';
 
 export const topbar = createComponent({
   afterRender() {

@@ -1,14 +1,14 @@
-import { createComponent } from '../../helpers/component';
+import { createComponent, createElement } from '../../utilities';
 
 export const about = createComponent({
   afterRender() {
     console.log('About page rendered');
   },
-  name: 'about',
-  template: `
-    <div
-      class="about">
-      Welcome to About! View <a href="./#/posts/1">posts</a>?
-    </div>
-  `,
+  render() {
+    return createElement('div', { class: 'about' },
+      'Welcome to About! Want to view',
+      createElement('a', { href: './#/posts/1' }, ' posts'),
+      '?'
+    );
+  },
 });

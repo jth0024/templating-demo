@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { createComponent, createElement } from '../../helpers/DOM';
+import { createComponent, createElement } from '../../utilities';
 
 export const home = createComponent({
   afterRender,
