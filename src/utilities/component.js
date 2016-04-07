@@ -1,12 +1,14 @@
 export function createComponent(args) {
   if (typeof args.render !== 'function') throw new Error('Components must supply a render!');
 
-  const constructor = function constructor(props) {
+  const Component = function Component(props) {
+    this.afterRender = args.afterRender || noop;
+    this.beforeRender = args.beforeRender || noop;
+    this.render = args.render;
+    this.state = {};
     this.props = props || {};
   };
-  constructor.prototype.afterRender = args.afterRender || 0;
-  constructor.prototype.beforeRender = args.beforeRender || 0;
-  constructor.prototype.render = args.render;
-
-  return constructor;
+  return Component;
 }
+
+function noop() {}
